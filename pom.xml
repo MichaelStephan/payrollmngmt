@@ -15,6 +15,7 @@
     <description>Payroll Management System</description>
     <properties>
         <java.version>21</java.version> <!-- Recommended for modern Spring Boot 2.x and 3.x -->
+        <tomcat.version>9.0.109</tomcat.version> <!-- Updated to remediate CVE-2025-55752 -->
     </properties>
     <dependencies>
         <dependency>
@@ -63,6 +64,27 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Override Tomcat version to remediate CVE-2025-55752 -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
